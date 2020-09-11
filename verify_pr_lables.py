@@ -56,22 +56,6 @@ except AttributeError:
 # Create a pull request object
 pr = repo.get_pull(pr_number)
 
-# Get the list of reviews
-pr_reviews = pr.get_reviews()
-
-# Look for the last review done by this module
-for review in pr_reviews.reversed:
-    if review.user.login == 'github-actions[bot]':
-        # If the last review done was approved, then exit the script here
-        # This will avoid to make a new approval
-        if review.state == 'APPROVED':
-            print(f'The last review was approved, so it is not going to be approved again')
-            sys.exit()
-
-        # If the last review done was not approved, then exit this loop
-        # but continue the script so that the label are check
-        break
-
 # Get the pull request labels
 pr_labels = pr.get_labels()
 
@@ -92,14 +76,27 @@ for label in pr_labels:
 # This will prevent merging the pull request until a valid label is added, which will trigger this check again
 # and will create a new pull request review, but in this case marked as 'APPROVE'
 
-
-
 if len(pr_valid_labels):
-    # If there were valid labels, then create a pull request request review, approving it
+    # If there were valid labels, create a pull request review, approving it
     print(f'Success! This pull request contains the following valid labels: {pr_valid_labels}')
-    #pr.create_review(body = 'This pull request contains a valid label.',
-    #                 event = 'APPROVE')
-    pr.create_review(event = 'APPROVE')
+
+    # Get the list of reviews
+    pr_reviews = pr.get_reviews()
+
+    # Look for the last review done by this module
+    for review in pr_reviews.reversed:
+        if review.user.login == 'github-actions[bot]':
+            if review.state == 'APPROVED':
+                # If the last review done was approved, then don't do it again
+                print(f'The last review was approved, so it is not going to be approved again')
+            else:
+                # Otherwise, do a new pull request review, approving it
+                pr.create_review(event = 'APPROVE')
+
+            # If the last review done was not approved, then exit this loop
+            # but continue the script so that the label are check
+            break
+
 else:
     # If there were not valid labels, then create a pull request review, requesting changes
     print(f'Error! This pull request does not contain any of the valid labels: {valid_labels}')

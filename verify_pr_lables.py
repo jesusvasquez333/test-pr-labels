@@ -96,7 +96,6 @@ if len(pr_valid_labels):
             # If the last review done was not approved, then exit this loop
             # but continue the script so that the label are check
             break
-
 else:
     # If there were not valid labels, then create a pull request review, requesting changes
     print(f'Error! This pull request does not contain any of the valid labels: {valid_labels}')

@@ -65,6 +65,7 @@ for review in pr_reviews.reversed:
         # If the last review done was approved, then exit the script here
         # This will avoid to make a new approval
         if review.state == 'APPROVED':
+            print(f'The last review was approved, so it is not going to be approved again')
             sys.exit()
 
         # If the last review done was not approved, then exit this loop

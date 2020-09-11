@@ -61,7 +61,7 @@ pr_reviews = pr.get_reviews()
 
 # Look for the last review done by this module
 for review in pr_reviews.reversed:
-    if r.user.login == 'github-actions[bot]':
+    if review.user.login == 'github-actions[bot]':
         # If the last review done was approved, then exit the script here
         # This will avoid to make a new approval
         if review.state == 'APPROVED':

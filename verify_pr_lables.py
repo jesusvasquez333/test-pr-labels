@@ -78,7 +78,7 @@ for review in pr_reviews.reversed:
         print(f'Last review found: status = {review.state}')
         if review.state == 'APPROVED':
             was_approved = True
-        elif review.state == 'REQUEST_CHANGES':
+        elif review.state == 'CHANGES_REQUESTED':
             was_approved = False
 
         # Break this loop after the last review is found.

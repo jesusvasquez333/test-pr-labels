@@ -71,11 +71,11 @@ for label in pr_labels:
     if label.name in valid_labels:
         pr_valid_labels.append(label.name)
 
-
 # Look for the last review done by this module
 was_approved = None
 for review in pr_reviews.reversed:
     if review.user.login == 'github-actions[bot]':
+        print(f'Last review found: status = {review.state}')
         if review.state == 'APPROVED':
             was_approved = True
         elif review.state == 'REQUEST_CHANGES':

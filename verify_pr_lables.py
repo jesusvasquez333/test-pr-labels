@@ -56,6 +56,21 @@ except AttributeError:
 # Create a pull request object
 pr = repo.get_pull(pr_number)
 
+# Get the list of reviews
+pr_reviews = pr.get_reviews()
+
+# Look for the last review done by this module
+for review in pr_reviews.reversed:
+    if r.user.login == 'github-actions[bot]':
+        # If the last review done was approved, then exit the script here
+        # This will avoid to make a new approval
+        if review.state == 'APPROVED':
+            sys.exit()
+
+        # If the last review done was not approved, then exit this loop
+        # but continue the script so that the label are check
+        break
+
 # Get the pull request labels
 pr_labels = pr.get_labels()
 

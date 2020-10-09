@@ -1,6 +1,9 @@
 on:
-  pull_request:
+  pull_request_target:
    types: [opened, labeled, unlabeled, synchronize]
+
+env:
+  PR_NUMBER: ${{ github.event.pull_request.number }}
 
 jobs:
   verify_pr_labels:

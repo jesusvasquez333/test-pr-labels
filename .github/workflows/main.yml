@@ -2,9 +2,6 @@ on:
   pull_request:
    types: [opened, labeled, unlabeled, synchronize]
 
-env:
-  PR_NUMBER: ${{ github.event.pull_request.number }}
-
 jobs:
   verify_pr_labels:
     runs-on: ubuntu-latest

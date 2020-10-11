@@ -8,7 +8,7 @@ jobs:
     name: Verify that the PR has a valid label
     steps:
     - name: Verify Pull Request Labels
-      uses: jesusvasquez333/verify-pr-label-action@master
+      uses: jesusvasquez333/verify-pr-label-action@fix-approve-check-bug
       id: verify-pr-label
       with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'

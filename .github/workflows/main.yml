@@ -8,10 +8,10 @@ jobs:
     name: Verify that the PR has a valid label
     steps:
     - name: Verify Pull Request Labels
-      uses: jesusvasquez333/verify-pr-label-action@issue16
+      uses: jesusvasquez333/verify-pr-label-action@master
       id: verify-pr-label
       with:
           github-token: '${{ secrets.GITHUB_TOKEN }}'
           valid-labels: 'bug, enhancement, interface-change'
           invalid-labels: 'help wanted, invalid'
-          pull-request-number: '${{ github.event.pull_request.number }}'
+          #pull-request-number: '${{ github.event.pull_request.number }}'

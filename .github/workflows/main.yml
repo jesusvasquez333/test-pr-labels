@@ -15,4 +15,4 @@ jobs:
           valid-labels: 'bug, enhancement, interface-change'
           invalid-labels: 'help wanted, invalid'
           pull-request-number: '${{ github.event.pull_request.number }}'
-          disable-reviews: true
+          #disable-reviews: true

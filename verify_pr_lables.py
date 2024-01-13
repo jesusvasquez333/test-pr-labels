@@ -238,10 +238,10 @@ if not pr_valid_labels:
     if review_missing_label:
         print('The last review already requested changes')
     else:
-        formatted_labels = "\n".join(map(lambda label: f"• {label}", valid_labels))
+        formatted_labels = "\n".join(map(lambda label: f"* `{label}`", valid_labels))
         pr.create_review(
             body='This pull request does not contain a valid label.\n\nPlease '
-                 f'add one of the following labels:\n`{formatted_labels}`',
+                 f'add one of the following labels:\n{formatted_labels}',
             event='REQUEST_CHANGES')
 else:
     print('This pull request contains the following valid labels: '
